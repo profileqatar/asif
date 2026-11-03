@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -135,7 +134,7 @@
     align-items: center;
   }
 
-  /* Core Profile Card (Geometric Reference Design) */
+  /* Core Profile Card */
   .profile-card {
     width: 100%;
     background: var(--card-bg);
@@ -181,7 +180,7 @@
     100% { left: 160%; opacity: 0; }
   }
 
-  /* Geometric Cut Avatar Frame */
+  /* Geometric Cut Avatar Frame - FLIPPED TO LEFT SIDE */
   .geo-avatar-container {
     position: relative;
     width: 260px;
@@ -216,12 +215,13 @@
     }
   }
 
+  /* FLIPPED POLYGON MASK (Left side orientation) */
   .geo-shape-mask {
     width: 100%;
     height: 100%;
     clip-path: polygon(
-      30% 0%, 100% 0%, 70% 100%, 0% 100%, 
-      18% 38%, 45% 38%, 35% 68%, 8% 68%
+      0% 0%, 70% 0%, 100% 100%, 30% 100%, 
+      55% 38%, 82% 38%, 92% 68%, 65% 68%
     );
     background: #000;
     position: relative;
@@ -249,12 +249,13 @@
     transform: scale(1.05);
   }
 
+  /* FLIPPED GLOW BORDER */
   .geo-glow-border {
     position: absolute;
     inset: -3px;
     clip-path: polygon(
-      30% 0%, 100% 0%, 70% 100%, 0% 100%, 
-      18% 38%, 45% 38%, 35% 68%, 8% 68%
+      0% 0%, 70% 0%, 100% 100%, 30% 100%, 
+      55% 38%, 82% 38%, 92% 68%, 65% 68%
     );
     background: linear-gradient(
       135deg, 
@@ -349,7 +350,7 @@
     width: fit-content;
     margin: 4px 0;
     backdrop-filter: blur(6px);
-    box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
   }
 
   .status-dot {
@@ -621,7 +622,7 @@
       </div>
     </div>
 
-    <!-- Main Reference Style Geometric Profile Card -->
+    <!-- Main Profile Card -->
     <div class="profile-card">
       <div class="geo-avatar-container">
         <div class="geo-glow-border"></div>
@@ -960,7 +961,7 @@
     shareBtn.addEventListener('click', () => qrModal.classList.add('visible'));
     closeQrModal.addEventListener('click', () => qrModal.classList.remove('visible'));
 
-    // Dynamic vCard Exporter with Base64 Image Fetching
+    // Dynamic vCard Exporter
     async function triggerVcardDownload() {
       hasVcardBeenDownloaded = true;
       modalOverlay.classList.remove('visible');
