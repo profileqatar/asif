@@ -1,811 +1,679 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark" dir="ltr">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muhammad</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* --- FUTURISTIC COSMIC DESIGN SYSTEM --- */
-        :root {
-            --bg-body-1: #03030f;
-            --bg-body-2: #09021a;
-            --bg-body-3: #001220;
-            --bg-element: rgba(11, 15, 30, 0.75);
-            --bg-element-hover: rgba(0, 243, 255, 0.18);
-            --text-main: #ffffff;
-            --text-muted: #9bb1de;
-            --border-color: rgba(0, 243, 255, 0.35);
-            --border-glow: rgba(0, 243, 255, 0.9);
-            --accent-cyan: #00f3ff;
-            --accent-purple: #b5179e;
-            --accent-pink: #f72585;
-            --btn-gradient: linear-gradient(135deg, #7209b7 0%, #00f3ff 100%);
-            --modal-bg: #0c1024;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muhammad — Digital Profile</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@500;600;700&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+  :root {
+    --bg-dark: #050814;
+    --neon-cyan: #00f3ff;
+    --neon-pink: #ff007f;
+    --neon-purple: #9d00ff;
+    --card-bg: rgba(13, 20, 40, 0.65);
+    --card-border: rgba(0, 243, 255, 0.3);
+  }
 
-        [data-theme="light"] {
-            --bg-body-1: #060818;
-            --bg-body-2: #120c24;
-            --bg-body-3: #021a24;
-            --text-main: #ffffff;
-            --text-muted: #b0c2e0;
-        }
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Rajdhani', 'Inter', sans-serif;
+    -webkit-tap-highlight-color: transparent;
+  }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            transition: background 0.3s ease, border-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-        }
+  body {
+    background-color: var(--bg-dark);
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    position: relative;
+    padding: 20px;
+  }
 
-        body {
-            background: linear-gradient(135deg, var(--bg-body-1), var(--bg-body-2), var(--bg-body-3));
-            background-size: 300% 300%;
-            animation: cosmicGradientShift 14s ease infinite;
-            color: var(--text-main);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            overflow-x: hidden;
-            position: relative;
-        }
+  /* Starfield Canvas Background */
+  #particles-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
 
-        @keyframes cosmicGradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+  /* Main Container */
+  .main-wrapper {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 850px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
 
-        /* Fullscreen Galaxy Canvas */
-        #galaxy-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 0;
-            pointer-events: none;
-        }
+  /* Navigation Header */
+  .top-nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
-        /* Direct Floating Layout (No Container Card) */
-        .profile-container {
-            width: 100%;
-            max-width: 380px;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            z-index: 2;
-            animation: containerEntrance 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-        }
+  .nav-btn {
+    background: rgba(13, 20, 40, 0.6);
+    border: 1px solid var(--card-border);
+    color: var(--neon-cyan);
+    padding: 8px 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 0 15px rgba(0, 243, 255, 0.15);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+  }
 
-        @keyframes containerEntrance {
-            0% { opacity: 0; transform: translateY(35px) scale(0.92); }
-            100% { opacity: 0.99; transform: translateY(0) scale(1); }
-        }
+  .nav-btn:hover {
+    background: rgba(0, 243, 255, 0.15);
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.4);
+    transform: translateY(-2px);
+  }
 
-        /* Header Navigation Tools */
-        .controls-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-            z-index: 10;
-        }
+  /* Core Profile Card (Geometric Reference Design) */
+  .profile-card {
+    width: 100%;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 24px;
+    padding: 36px;
+    box-shadow: 0 0 40px rgba(0, 243, 255, 0.15), inset 0 0 20px rgba(0, 243, 255, 0.05);
+    backdrop-filter: blur(16px);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 36px;
+    position: relative;
+    overflow: hidden;
+  }
 
-        .lang-btn, .theme-btn {
-            background: rgba(11, 15, 30, 0.75);
-            border: 1px solid var(--border-color);
-            color: var(--accent-cyan);
-            padding: 7px 16px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            box-shadow: 0 0 12px rgba(0, 243, 255, 0.2);
-            backdrop-filter: blur(8px);
-        }
+  /* Geometric Cut Avatar Frame */
+  .geo-avatar-container {
+    position: relative;
+    width: 260px;
+    height: 230px;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-        .lang-btn:hover, .theme-btn:hover {
-            border-color: var(--accent-cyan);
-            box-shadow: 0 0 20px rgba(0, 243, 255, 0.5);
-            transform: translateY(-2px);
-        }
+  .geo-shape-mask {
+    width: 100%;
+    height: 100%;
+    clip-path: polygon(
+      30% 0%, 100% 0%, 70% 100%, 0% 100%, 
+      18% 38%, 45% 38%, 35% 68%, 8% 68%
+    );
+    background: #000;
+    position: relative;
+    box-shadow: 0 0 25px rgba(0, 243, 255, 0.3);
+  }
 
-        .theme-btn {
-            width: 36px;
-            height: 36px;
-            padding: 0;
-            justify-content: center;
-            border-radius: 50%;
-        }
+  .geo-avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(20%) contrast(110%);
+    transition: transform 0.5s ease, filter 0.5s ease;
+  }
 
-        /* Hero Avatar Section */
-        .profile-hero {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            margin-bottom: 22px;
-            position: relative;
-        }
+  .geo-avatar-container:hover .geo-avatar-img {
+    filter: grayscale(0%) contrast(100%);
+    transform: scale(1.05);
+  }
 
-        .avatar-frame {
-            position: relative;
-            width: 110px;
-            height: 110px;
-            margin-bottom: 18px;
-        }
+  .geo-glow-border {
+    position: absolute;
+    inset: -3px;
+    clip-path: polygon(
+      30% 0%, 100% 0%, 70% 100%, 0% 100%, 
+      18% 38%, 45% 38%, 35% 68%, 8% 68%
+    );
+    background: linear-gradient(135deg, var(--neon-cyan), var(--neon-pink), var(--neon-purple));
+    z-index: -1;
+    opacity: 0.8;
+    filter: blur(4px);
+    animation: borderPulse 4s ease-in-out infinite alternate;
+  }
 
-        /* Rotating Cosmic Orbit Ring */
-        .avatar-frame::before {
-            content: '';
-            position: absolute;
-            top: -7px;
-            left: -7px;
-            right: -7px;
-            bottom: -7px;
-            border-radius: 50%;
-            background: conic-gradient(from 0deg, var(--accent-cyan), var(--accent-purple), var(--accent-pink), var(--accent-cyan));
-            animation: spinRing 4s linear infinite;
-            z-index: 1;
-            filter: blur(3px);
-        }
+  @keyframes borderPulse {
+    0% { opacity: 0.5; filter: blur(3px); }
+    100% { opacity: 1; filter: blur(7px); }
+  }
 
-        .avatar-frame::after {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            border-radius: 50%;
-            background: #03030f;
-            z-index: 1;
-        }
+  /* Vertical Card Divider */
+  .card-divider {
+    width: 1px;
+    height: 180px;
+    background: linear-gradient(to bottom, transparent, var(--neon-cyan), transparent);
+    opacity: 0.5;
+  }
 
-        @keyframes spinRing {
-            100% { transform: rotate(360deg); }
-        }
+  /* Profile Text Content */
+  .profile-details {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
 
-        .avatar-frame img {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-            z-index: 2;
-        }
+  .name-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
 
-        .verified-badge {
-            position: absolute;
-            bottom: 2px;
-            right: 2px;
-            background: var(--accent-cyan);
-            color: #000;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 0.75rem;
-            font-weight: 900;
-            border: 2px solid #03030f;
-            z-index: 3;
-            box-shadow: 0 0 12px var(--accent-cyan);
-        }
+  .name-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    background: linear-gradient(90deg, #ffffff, var(--neon-cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 
-        /* Name Typography with Gradient Glow */
-        .profile-hero h1 {
-            font-size: 1.85rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            margin-bottom: 12px;
-            background: linear-gradient(135deg, #ffffff 20%, var(--accent-cyan) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 25px rgba(0, 243, 255, 0.4);
-        }
+  .verified-badge {
+    color: var(--neon-cyan);
+    font-size: 20px;
+    filter: drop-shadow(0 0 8px var(--neon-cyan));
+  }
 
-        /* Quantum Status Indicator Pill */
-        .status-container {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(11, 15, 30, 0.8);
-            border: 1px solid rgba(0, 243, 255, 0.35);
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            margin-bottom: 14px;
-            color: #ffffff;
-            backdrop-filter: blur(6px);
-            box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
-        }
+  .location-tag {
+    font-size: 15px;
+    color: #a0aec0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+  }
 
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background-color: #00ffcc;
-            box-shadow: 0 0 10px #00ffcc;
-        }
+  .location-tag i {
+    color: var(--neon-pink);
+    filter: drop-shadow(0 0 5px var(--neon-pink));
+  }
 
-        .status-dot.pulse {
-            animation: pulseGlow 1.5s infinite ease-in-out;
-        }
+  /* Status Pill Indicator */
+  .status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0, 243, 255, 0.08);
+    border: 1px solid rgba(0, 243, 255, 0.3);
+    padding: 4px 14px;
+    border-radius: 50px;
+    font-size: 13px;
+    width: fit-content;
+    margin: 4px 0;
+  }
 
-        @keyframes pulseGlow {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.4); opacity: 0.5; }
-            100% { transform: scale(1); opacity: 1; }
-        }
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #00ff88;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #00ff88;
+    animation: pulse 1.8s infinite;
+  }
 
-        .meta-info-list {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            font-size: 0.88rem;
-            color: var(--text-muted);
-        }
+  @keyframes pulse {
+    0% { opacity: 0.4; }
+    50% { opacity: 1; transform: scale(1.2); }
+    100% { opacity: 0.4; }
+  }
 
-        .meta-item {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
+  /* Social Links Grid inside Card */
+  .social-actions-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+  }
 
-        .meta-item i {
-            color: var(--accent-cyan);
-        }
+  .social-icon-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(0, 243, 255, 0.3);
+    color: var(--neon-cyan);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 16px;
+    transition: all 0.3s ease;
+  }
 
-        /* Action Grid (4 Buttons) with Solid Dark Styling */
-        .quick-actions-row {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            margin-bottom: 22px;
-        }
+  .social-icon-btn:hover {
+    background: var(--neon-cyan);
+    color: #000;
+    box-shadow: 0 0 15px var(--neon-cyan);
+    transform: translateY(-3px);
+  }
 
-        .action-pill {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: var(--bg-element);
-            border: 1px solid var(--border-color);
-            border-radius: 18px;
-            height: 72px;
-            color: var(--text-main);
-            text-decoration: none;
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(8px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-        }
+  /* Interactive Action Grid */
+  .actions-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    width: 100%;
+  }
 
-        .action-pill::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(60deg, transparent, rgba(0, 243, 255, 0.2), transparent);
-            transform: rotate(30deg);
-            transition: 0.5s;
-        }
+  .action-btn {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 16px 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+  }
 
-        .action-pill:hover::after {
-            left: 100%;
-        }
+  .action-btn i {
+    font-size: 22px;
+    color: var(--neon-cyan);
+    transition: transform 0.3s ease;
+  }
 
-        .action-pill:hover {
-            border-color: var(--accent-cyan);
-            box-shadow: 0 0 22px rgba(0, 243, 255, 0.4);
-            transform: translateY(-4px);
-            background: var(--bg-element-hover);
-        }
+  .action-btn span {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
 
-        .action-pill i {
-            font-size: 1.25rem;
-            margin-bottom: 6px;
-            color: var(--accent-cyan);
-        }
+  .action-btn:hover {
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+    transform: translateY(-4px);
+  }
 
-        .action-pill span {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            font-weight: 600;
-        }
+  .action-btn:hover i {
+    transform: scale(1.15);
+    filter: drop-shadow(0 0 8px var(--neon-cyan));
+  }
 
-        /* Action CTA Container */
-        .cta-container {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+  /* Primary vCard CTA */
+  .cta-button {
+    width: 100%;
+    background: linear-gradient(135deg, rgba(0, 243, 255, 0.15), rgba(157, 0, 255, 0.25));
+    border: 1px solid var(--neon-cyan);
+    border-radius: 16px;
+    padding: 16px;
+    color: #fff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    cursor: pointer;
+    box-shadow: 0 0 25px rgba(0, 243, 255, 0.2);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+  }
 
-        .btn-outline-cyber {
-            width: 100%;
-            height: 52px;
-            background: var(--bg-element);
-            color: var(--text-main);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            font-size: 0.95rem;
-            font-weight: 700;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            backdrop-filter: blur(8px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-        }
+  .cta-button:hover {
+    background: linear-gradient(135deg, rgba(0, 243, 255, 0.3), rgba(255, 0, 127, 0.4));
+    box-shadow: 0 0 35px rgba(0, 243, 255, 0.5);
+    transform: scale(1.02);
+  }
 
-        .btn-outline-cyber:hover {
-            border-color: var(--accent-cyan);
-            background: var(--bg-element-hover);
-            box-shadow: 0 0 22px rgba(0, 243, 255, 0.35);
-            transform: translateY(-2px);
-        }
+  .cta-button i {
+    font-size: 18px;
+    color: var(--neon-cyan);
+  }
 
-        /* Modal Overlay */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(2, 2, 8, 0.88);
-            backdrop-filter: blur(12px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.4s ease;
-        }
+  /* QR Modal Overlay */
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(5, 8, 20, 0.85);
+    backdrop-filter: blur(15px);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
 
-        .modal-overlay.visible { opacity: 1; pointer-events: auto; }
+  .modal.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
 
-        .vcard-popup-reminder {
-            width: 90%;
-            max-width: 340px;
-            background: var(--modal-bg);
-            border: 1px solid var(--border-glow);
-            box-shadow: 0 0 50px rgba(0, 243, 255, 0.35);
-            border-radius: 28px;
-            padding: 24px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transform: scale(0.85);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
+  .modal-content {
+    background: rgba(13, 20, 40, 0.95);
+    border: 1px solid var(--neon-cyan);
+    border-radius: 20px;
+    padding: 24px;
+    width: 85%;
+    max-width: 350px;
+    text-align: center;
+    box-shadow: 0 0 40px rgba(0, 243, 255, 0.3);
+    position: relative;
+  }
 
-        .modal-overlay.visible .vcard-popup-reminder { transform: scale(1); }
+  .close-modal {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+  }
 
-        .vcard-popup-icon {
-            width: 60px;
-            height: 60px;
-            background: rgba(0, 243, 255, 0.1);
-            color: var(--accent-cyan);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.5rem;
-            margin-bottom: 16px;
-            border: 1px solid var(--border-glow);
-            box-shadow: 0 0 20px rgba(0, 243, 255, 0.4);
-        }
+  .qr-code-box {
+    margin: 20px 0;
+    background: #fff;
+    padding: 15px;
+    border-radius: 12px;
+    display: inline-block;
+  }
 
-        .vcard-popup-text {
-            font-size: 0.95rem;
-            line-height: 1.5;
-            color: var(--text-main);
-            font-weight: 500;
-            margin-bottom: 24px;
-        }
+  .qr-code-box img {
+    width: 160px;
+    height: 160px;
+  }
 
-        .modal-btn-group {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            width: 100%;
-        }
+  @media (max-width: 768px) {
+    .profile-card {
+      flex-direction: column;
+      gap: 20px;
+      padding: 24px;
+      text-align: center;
+    }
 
-        .vcard-popup-btn {
-            background: var(--btn-gradient);
-            color: #ffffff;
-            border: none;
-            width: 100%;
-            height: 46px;
-            border-radius: 14px;
-            font-size: 0.95rem;
-            font-weight: 800;
-            cursor: pointer;
-            box-shadow: 0 0 18px rgba(0, 243, 255, 0.35);
-        }
+    .card-divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--neon-cyan), transparent);
+    }
 
-        .vcard-popup-close-btn {
-            background: transparent;
-            color: var(--text-muted);
-            border: none;
-            width: 100%;
-            height: 40px;
-            border-radius: 12px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-        }
-        .vcard-popup-close-btn:hover { color: var(--text-main); }
-    </style>
+    .name-header, .location-tag, .social-actions-bar {
+      justify-content: center;
+    }
+
+    .status-pill {
+      margin: 0 auto;
+    }
+  }
+
+  [dir="rtl"] .actions-grid {
+    direction: rtl;
+  }
+</style>
 </head>
 <body>
 
-    <!-- Fullscreen Galaxy & Shooting Star Canvas -->
-    <canvas id="galaxy-canvas"></canvas>
+  <!-- Background Particle Canvas -->
+  <canvas id="particles-canvas"></canvas>
 
-    <div class="profile-container">
-        
-        <div class="controls-header">
-            <button id="lang-toggle" class="lang-btn" aria-label="Switch Language">
-                <i class="fa-solid fa-globe"></i> <span id="lang-text">عربي</span>
-            </button>
-            <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
-                <i class="fa-solid fa-moon"></i>
-            </button>
-        </div>
-        
-        <section class="profile-hero">
-            <div class="avatar-frame">
-                <img id="profile-display-img" src="Screenshot_20260526_003701_WhatsApp.jpg" alt="Muhammad">
-                <div class="verified-badge"><i class="fa-solid fa-check"></i></div>
-            </div>
-            
-            <div id="status-badge" class="status-container">
-                <span id="status-dot" class="status-dot pulse"></span>
-                <span id="status-text">Checking Status...</span>
-            </div>
+  <div class="main-wrapper">
+    <!-- Top Navigation -->
+    <div class="top-nav">
+      <button class="nav-btn" id="langToggle">
+        <i class="fa-solid fa-globe"></i>
+        <span id="langText">عربي</span>
+      </button>
 
-            <h1 id="profile-name">Muhammad</h1>
-            
-            <div class="meta-info-list">
-                <div class="meta-item"><i class="fa-solid fa-location-dot"></i> <span id="meta-location">Doha, Qatar</span></div>
-            </div>
-        </section>
-
-        <!-- Quick Actions Row -->
-        <section class="quick-actions-row">
-            <a href="tel:+97451736746" class="action-pill interaction-track" data-label="Phone Call Clicked">
-                <i class="fa-solid fa-phone"></i>
-                <span data-i18n="call">Call</span>
-            </a>
-            <a href="https://wa.me/97451736746" target="_blank" class="action-pill interaction-track" data-label="WhatsApp Clicked">
-                <i class="fa-brands fa-whatsapp"></i>
-                <span>WhatsApp</span>
-            </a>
-            <a href="https://wa.me/97451736746?text=Hey%20can%20we%20schedule%20a%20meeting" target="_blank" class="action-pill interaction-track" data-label="Meeting WhatsApp Clicked">
-                <i class="fa-regular fa-calendar-days"></i>
-                <span data-i18n="meeting">Meeting</span>
-            </a>
-            <a href="#" target="_blank" class="action-pill interaction-track" data-label="Office Location Mapped">
-                <i class="fa-solid fa-location-arrow"></i>
-                <span data-i18n="location_pill">Location</span>
-            </a>
-        </section>
-
-        <section class="cta-container">
-            <button id="vcard-btn" class="btn-outline-cyber">
-                <i class="fa-regular fa-address-card"></i> <span id="vcard-btn-text" data-i18n="btn-vcard">Download vCard</span>
-            </button>
-        </section>
-
+      <button class="nav-btn" id="shareBtn">
+        <i class="fa-solid fa-qrcode"></i>
+      </button>
     </div>
 
-    <!-- Contact Modal Overlay -->
-    <div id="modal-overlay" class="modal-overlay">
-        <div class="vcard-popup-reminder">
-            <div class="vcard-popup-icon"><i class="fa-solid fa-user-plus"></i></div>
-            <div id="vcard-reminder-text" class="vcard-popup-text">
-                Save Muhammad directly to your phone contacts list.
-            </div>
-            <div class="modal-btn-group">
-                <button id="vcard-popup-download" class="vcard-popup-btn">Save Contact</button>
-                <button id="vcard-popup-close" class="vcard-popup-close-btn">Not Now</button>
-            </div>
+    <!-- Main Reference Style Geometric Profile Card -->
+    <div class="profile-card">
+      <div class="geo-avatar-container">
+        <div class="geo-glow-border"></div>
+        <div class="geo-shape-mask">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" alt="Muhammad Avatar" class="geo-avatar-img" id="avatarImg">
         </div>
+      </div>
+
+      <div class="card-divider"></div>
+
+      <div class="profile-details">
+        <div class="name-header">
+          <h1 class="name-title" id="userName">Muhammad</h1>
+          <i class="fa-solid fa-circle-check verified-badge"></i>
+        </div>
+
+        <div class="location-tag">
+          <i class="fa-solid fa-location-dot"></i>
+          <span>Doha, Qatar</span>
+        </div>
+
+        <div class="status-pill">
+          <span class="status-dot"></span>
+          <span id="statusText">Active Now (Qatar Time)</span>
+        </div>
+
+        <div class="social-actions-bar">
+          <a href="#" class="social-icon-btn"><i class="fa-solid fa-globe"></i></a>
+          <a href="#" class="social-icon-btn"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="social-icon-btn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#" class="social-icon-btn"><i class="fa-brands fa-facebook-f"></i></a>
+        </div>
+      </div>
     </div>
 
-    <script>
-        const canvas = document.getElementById('galaxy-canvas');
-        const ctx = canvas.getContext('2d');
-        let stars = [];
-        let meteors = [];
+    <!-- Quick Communication Action Grid -->
+    <div class="actions-grid">
+      <a href="tel:+97400000000" class="action-btn">
+        <i class="fa-solid fa-phone"></i>
+        <span id="labelCall">Call</span>
+      </a>
 
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+      <a href="https://wa.me/97400000000" target="_blank" class="action-btn">
+        <i class="fa-brands fa-whatsapp"></i>
+        <span id="labelWhatsapp">WhatsApp</span>
+      </a>
+
+      <div class="action-btn" id="meetingBtn">
+        <i class="fa-solid fa-calendar-check"></i>
+        <span id="labelMeeting">Meeting</span>
+      </div>
+
+      <div class="action-btn" id="locationBtn">
+        <i class="fa-solid fa-compass"></i>
+        <span id="labelLocation">Location</span>
+      </div>
+    </div>
+
+    <!-- vCard Download Primary CTA -->
+    <button class="cta-button" id="downloadVcard">
+      <i class="fa-solid fa-id-card"></i>
+      <span id="labelVcard">Download vCard</span>
+    </button>
+  </div>
+
+  <!-- QR Code Modal -->
+  <div class="modal" id="qrModal">
+    <div class="modal-content">
+      <i class="fa-solid fa-xmark close-modal" id="closeQrModal"></i>
+      <h3 style="font-family: Orbitron; color: var(--neon-cyan);">Scan Profile</h3>
+      <div class="qr-code-box">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https://profileqatar.github.io/asif/" alt="QR Code">
+      </div>
+      <p style="font-size: 13px; color: #a0aec0;">Scan with camera to open profile instant digital business card.</p>
+    </div>
+  </div>
+
+  <script>
+    // Canvas Cyber Starfield
+    const canvas = document.getElementById('particles-canvas');
+    const ctx = canvas.getContext('2d');
+
+    let particlesArray = [];
+    const numberOfParticles = 65;
+
+    function setCanvasDimensions() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    setCanvasDimensions();
+    window.addEventListener('resize', setCanvasDimensions);
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 0.5;
+        this.speedX = (Math.random() - 0.5) * 0.8;
+        this.speedY = (Math.random() - 0.5) * 0.8;
+        this.color = Math.random() > 0.5 ? '#00f3ff' : '#ff007f';
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+      }
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function initParticles() {
+      particlesArray = [];
+      for (let i = 0; i < numberOfParticles; i++) {
+        particlesArray.push(new Particle());
+      }
+    }
+    initParticles();
+
+    function connectParticles() {
+      for (let a = 0; a < particlesArray.length; a++) {
+        for (let b = a; b < particlesArray.length; b++) {
+          let dx = particlesArray[a].x - particlesArray[b].x;
+          let dy = particlesArray[a].y - particlesArray[b].y;
+          let distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < 110) {
+            ctx.strokeStyle = `rgba(0, 243, 255, ${1 - distance / 110})`;
+            ctx.lineWidth = 0.5;
+            ctx.beginPath();
+            ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+            ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+            ctx.stroke();
+          }
         }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
+      }
+    }
 
-        class Star {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2.6 + 0.8;
-                this.alpha = Math.random();
-                this.alphaChange = (Math.random() * 0.025 + 0.008) * (Math.random() < 0.5 ? 1 : -1);
-                this.color = ['#ffffff', '#00f0ff', '#e0aaff', '#f72585', '#4cc9f0'][Math.floor(Math.random() * 5)];
-            }
-            update() {
-                this.alpha += this.alphaChange;
-                if (this.alpha <= 0.2 || this.alpha >= 1) {
-                    this.alphaChange *= -1;
-                }
-            }
-            draw() {
-                ctx.save();
-                ctx.globalAlpha = Math.max(0.2, this.alpha);
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = this.color;
-                ctx.shadowBlur = this.size * 7;
-                ctx.shadowColor = this.color;
-                ctx.fill();
-                ctx.restore();
-            }
-        }
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particlesArray.forEach(particle => {
+        particle.update();
+        particle.draw();
+      });
+      connectParticles();
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
 
-        class Meteor {
-            constructor() {
-                this.reset();
-            }
-            reset() {
-                this.x = Math.random() * canvas.width * 1.5 - canvas.width * 0.25;
-                this.y = -60;
-                this.length = Math.random() * 140 + 80;
-                this.speed = Math.random() * 11 + 6;
-                this.size = Math.random() * 2 + 1;
-            }
-            update() {
-                this.x += this.speed;
-                this.y += this.speed * 0.85;
-                if (this.y > canvas.height + 120 || this.x > canvas.width + 120) {
-                    this.reset();
-                }
-            }
-            draw() {
-                ctx.save();
-                const gradient = ctx.createLinearGradient(
-                    this.x, this.y, 
-                    this.x - this.length, this.y - this.length * 0.85
-                );
-                gradient.addColorStop(0, '#00f0ff');
-                gradient.addColorStop(0.5, '#f72585');
-                gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+    // Multi-Language Switcher (EN/AR)
+    let isArabic = false;
+    const langToggleBtn = document.getElementById('langToggle');
+    const langText = document.getElementById('langText');
 
-                ctx.strokeStyle = gradient;
-                ctx.lineWidth = this.size;
-                ctx.beginPath();
-                ctx.moveTo(this.x, this.y);
-                ctx.lineTo(this.x - this.length, this.y - this.length * 0.85);
-                ctx.stroke();
-                ctx.restore();
-            }
-        }
+    const i18n = {
+      en: {
+        langText: 'عربي',
+        statusText: 'Active Now (Qatar Time)',
+        labelCall: 'Call',
+        labelWhatsapp: 'WhatsApp',
+        labelMeeting: 'Meeting',
+        labelLocation: 'Location',
+        labelVcard: 'Download vCard'
+      },
+      ar: {
+        langText: 'English',
+        statusText: 'نشط الآن (توقيت قطر)',
+        labelCall: 'اتصال',
+        labelWhatsapp: 'واتساب',
+        labelMeeting: 'اجتماع',
+        labelLocation: 'الموقع',
+        labelVcard: 'تحميل بطاقة الاتصال'
+      }
+    };
 
-        for (let i = 0; i < 180; i++) {
-            stars.push(new Star());
-        }
-        for (let i = 0; i < 4; i++) {
-            meteors.push(new Meteor());
-        }
+    langToggleBtn.addEventListener('click', () => {
+      isArabic = !isArabic;
+      const lang = isArabic ? 'ar' : 'en';
+      document.body.setAttribute('dir', isArabic ? 'rtl' : 'ltr');
 
-        function animateGalaxy() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            const grad1 = ctx.createRadialGradient(canvas.width * 0.25, canvas.height * 0.25, 10, canvas.width * 0.25, canvas.height * 0.25, 320);
-            grad1.addColorStop(0, 'rgba(181, 23, 158, 0.22)');
-            grad1.addColorStop(1, 'rgba(3, 3, 15, 0)');
-            ctx.fillStyle = grad1;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+      langText.innerText = i18n[lang].langText;
+      document.getElementById('statusText').innerText = i18n[lang].statusText;
+      document.getElementById('labelCall').innerText = i18n[lang].labelCall;
+      document.getElementById('labelWhatsapp').innerText = i18n[lang].labelWhatsapp;
+      document.getElementById('labelMeeting').innerText = i18n[lang].labelMeeting;
+      document.getElementById('labelLocation').innerText = i18n[lang].labelLocation;
+      document.getElementById('labelVcard').innerText = i18n[lang].labelVcard;
+    });
 
-            const grad2 = ctx.createRadialGradient(canvas.width * 0.75, canvas.height * 0.75, 10, canvas.width * 0.75, canvas.height * 0.75, 360);
-            grad2.addColorStop(0, 'rgba(0, 243, 255, 0.2)');
-            grad2.addColorStop(1, 'rgba(3, 3, 15, 0)');
-            ctx.fillStyle = grad2;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+    // Modal Events
+    const shareBtn = document.getElementById('shareBtn');
+    const qrModal = document.getElementById('qrModal');
+    const closeQrModal = document.getElementById('closeQrModal');
 
-            stars.forEach(star => {
-                star.update();
-                star.draw();
-            });
+    shareBtn.addEventListener('click', () => qrModal.classList.add('active'));
+    closeQrModal.addEventListener('click', () => qrModal.classList.remove('active'));
 
-            meteors.forEach(meteor => {
-                meteor.update();
-                meteor.draw();
-            });
-
-            requestAnimationFrame(animateGalaxy);
-        }
-        animateGalaxy();
-
-        let currentLanguage = 'en';
-        const translations = {
-            en: {
-                name: "Muhammad",
-                location: "Doha, Qatar",
-                call: "Call",
-                meeting: "Meeting",
-                location_pill: "Location",
-                "btn-vcard": "Download vCard",
-                "vcard_reminder": "Save Muhammad directly to your phone contacts list.",
-                "vcard_save": "Save Contact",
-                "vcard_cancel": "Not Now",
-                "status-on": "Active Now (Qatar Time)",
-                "status-off": "🌙 Standby / Offline"
-            },
-            ar: {
-                name: "محمد",
-                location: "الدوحة، قطر",
-                call: "اتصال",
-                meeting: "اجتماع",
-                location_pill: "الموقع",
-                "btn-vcard": "حفظ جهة الاتصال",
-                "vcard_reminder": "احفظ جهة اتصال محمد مباشرة في هاتفك.",
-                "vcard_save": "حفظ جهة الاتصال",
-                "vcard_cancel": "ليس الآن",
-                "status-on": "نشط حالياً (توقيت قطر)",
-                "status-off": "🌙 خارج أوقات العمل"
-            }
-        };
-
-        const langToggleBtn = document.getElementById('lang-toggle');
-        const langText = document.getElementById('lang-text');
-
-        function setLanguage(lang) {
-            currentLanguage = lang;
-            document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
-            document.documentElement.setAttribute('lang', lang);
-            langText.innerText = lang === 'en' ? 'عربي' : 'EN';
-
-            document.getElementById('profile-name').innerText = translations[lang].name;
-            document.getElementById('meta-location').innerText = translations[lang].location;
-            document.getElementById('vcard-reminder-text').innerText = translations[lang]["vcard_reminder"];
-            document.getElementById('vcard-popup-download').innerText = translations[lang]["vcard_save"];
-            document.getElementById('vcard-popup-close').innerText = translations[lang]["vcard_cancel"];
-
-            document.querySelectorAll('[data-i18n]').forEach(element => {
-                const translationKey = element.getAttribute('data-i18n');
-                if (translations[lang][translationKey]) {
-                    const icon = element.querySelector('i');
-                    if (icon) {
-                        element.innerHTML = '';
-                        element.appendChild(icon);
-                        element.appendChild(document.createTextNode(' ' + translations[lang][translationKey]));
-                    } else {
-                        element.innerText = translations[lang][translationKey];
-                    }
-                }
-            });
-            updateQatarStatus(); 
-        }
-
-        langToggleBtn.addEventListener('click', () => {
-            setLanguage(currentLanguage === 'en' ? 'ar' : 'en');
-        });
-
-        function updateQatarStatus() {
-            const dot = document.getElementById('status-dot');
-            const text = document.getElementById('status-text');
-            const now = new Date();
-            const qatarTimeString = now.toLocaleString("en-US", {timeZone: "Asia/Qatar", hour: 'numeric', hour12: false});
-            const currentQatarHour = parseInt(qatarTimeString, 10);
-
-            if (currentQatarHour >= 8 && currentQatarHour < 18) {
-                dot.style.backgroundColor = "#00ffcc";
-                dot.classList.add('pulse');
-                text.innerText = translations[currentLanguage]["status-on"];
-            } else {
-                dot.style.backgroundColor = "#f72585";
-                dot.classList.remove('pulse');
-                text.innerText = translations[currentLanguage]["status-off"];
-            }
-        }
-        updateQatarStatus();
-        setInterval(updateQatarStatus, 60000);
-
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        const themeIcon = themeToggleBtn.querySelector('i');
-
-        themeToggleBtn.addEventListener('click', () => {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            let targetTheme = 'dark';
-            if (currentTheme === 'dark') {
-                targetTheme = 'light';
-                themeIcon.className = 'fa-solid fa-sun';
-            } else {
-                themeIcon.className = 'fa-solid fa-moon';
-            }
-            document.documentElement.setAttribute('data-theme', targetTheme);
-        });
-
-        const modalOverlay = document.getElementById('modal-overlay');
-        const closePopupBtn = document.getElementById('vcard-popup-close');
-        let hasVcardBeenDownloaded = false;
-        
-        setTimeout(() => {
-            if (!hasVcardBeenDownloaded) {
-                modalOverlay.classList.add('visible');
-            }
-        }, 15000);
-
-        closePopupBtn.addEventListener('click', () => {
-            modalOverlay.classList.remove('visible');
-        });
-
-        document.getElementById('vcard-popup-download').addEventListener('click', () => {
-            modalOverlay.classList.remove('visible');
-            document.getElementById('vcard-btn').click(); 
-        });
-
-        async function triggerVcardDownload() {
-            hasVcardBeenDownloaded = true;
-            modalOverlay.classList.remove('visible'); 
-            
-            const imageUrl = window.location.origin + window.location.pathname.replace('index.html', '') + 'Screenshot_20260526_003701_WhatsApp.jpg';
-            let base64PhotoText = '';
-            
-            try {
-                const response = await fetch(imageUrl);
-                const blob = await response.blob();
-                base64PhotoText = await new Promise((resolve) => {
-                    const reader = new FileReader();
-                    reader.onloadend = () => resolve(reader.result.split(',')[1]);
-                    reader.readAsDataURL(blob);
-                });
-            } catch (e) {}
-
-            const vcardLines = [
-                "BEGIN:VCARD",
-                "VERSION:3.0",
-                "N:;Muhammad;;;",
-                "FN:Muhammad",
-                "TEL;TYPE=CELL;TYPE=PREF:+97451736746"
-            ];
-            
-            if (base64PhotoText) {
-                vcardLines.push("PHOTO;TYPE=JPEG;ENCODING=b:" + base64PhotoText);
-            } else {
-                vcardLines.push("PHOTO;VALUE=URL:" + imageUrl);
-            }
-            vcardLines.push("END:VCARD");
-
-            const blobFile = new Blob([vcardLines.join("\r\n")], { type: 'text/vcard;charset=utf-8;' });
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blobFile);
-            link.download = 'Muhammad.vcf';
-            link.click();
-        }
-
-        document.getElementById('vcard-btn').addEventListener('click', triggerVcardDownload);
-    </script>
+    // Dynamic vCard File Generation
+    document.getElementById('downloadVcard').addEventListener('click', () => {
+      const vcardData = `BEGIN:VCARD\nVERSION:3.0\nFN:Muhammad\nTITLE:Digital Profile\nTEL;TYPE=CELL:+97400000000\nADR;TYPE=WORK:;;Doha;Qatar\nEND:VCARD`;
+      const blob = new Blob([vcardData], { type: 'text/vcard' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.setAttribute('href', url);
+      a.setAttribute('download', 'Muhammad.vcf');
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    });
+  </script>
 </body>
 </html>
