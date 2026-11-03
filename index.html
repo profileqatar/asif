@@ -1,812 +1,1006 @@
+```html
 <!DOCTYPE html>
-<html lang="en" data-theme="dark" dir="ltr">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Muhammad</title>
+<title>Muhammad — Digital Profile</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-/* --- FUTURISTIC COSMIC DESIGN SYSTEM --- */
-:root {
---bg-body-1: #03030f;
---bg-body-2: #09021a;
---bg-body-3: #001220;
---bg-element: rgba(11, 15, 30, 0.75);
---bg-element-hover: rgba(0, 243, 255, 0.18);
---text-main: #ffffff;
---text-muted: #9bb1de;
---border-color: rgba(0, 243, 255, 0.35);
---border-glow: rgba(0, 243, 255, 0.9);
---accent-cyan: #00f3ff;
---accent-purple: #b5179e;
---accent-pink: #f72585;
---btn-gradient: linear-gradient(135deg, #7209b7 0%, #00f3ff 100%);
---modal-bg: #0c1024;
-}
+  :root {
+    --bg-body-1: #03030f;
+    --bg-body-2: #09021a;
+    --bg-body-3: #001220;
+    --bg-dark: #030611;
+    --neon-cyan: #00f0ff;
+    --neon-pink: #ff0055;
+    --neon-purple: #7000ff;
+    --neon-gold: #ffaa00;
+    --card-bg: linear-gradient(135deg, rgba(12, 18, 42, 0.85) 0%, rgba(20, 10, 38, 0.85) 100%);
+    --card-border: rgba(0, 240, 255, 0.35);
+    --text-muted: #9bb1de;
+    --btn-gradient: linear-gradient(135deg, #7209b7 0%, #00f3ff 100%);
+    --modal-bg: #0c1024;
+  }
 
-[data-theme="light"] {
---bg-body-1: #060818;
---bg-body-2: #120c24;
---bg-body-3: #021a24;
---text-main: #ffffff;
---text-muted: #b0c2e0;
-}
+  [data-theme="light"] {
+    --bg-body-1: #060818;
+    --bg-body-2: #120c24;
+    --bg-body-3: #021a24;
+    --text-muted: #b0c2e0;
+  }
 
-* {
-margin: 0;
-padding: 0;
-box-sizing: border-box;
-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-transition: background 0.3s ease, border-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-}
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Rajdhani', sans-serif;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.3s ease, border-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  }
 
-body {
-background: linear-gradient(135deg, var(--bg-body-1), var(--bg-body-2), var(--bg-body-3));
-background-size: 300% 300%;
-animation: cosmicGradientShift 14s ease infinite;
-color: var(--text-main);
-min-height: 100vh;
-display: flex;
-justify-content: center;
-align-items: center;
-padding: 20px;
-overflow-x: hidden;
-position: relative;
-}
+  body {
+    background: linear-gradient(135deg, var(--bg-body-1), var(--bg-body-2), var(--bg-body-3));
+    background-size: 300% 300%;
+    animation: cosmicGradientShift 14s ease infinite;
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    position: relative;
+    padding: 20px;
+  }
 
-@keyframes cosmicGradientShift {
-0% { background-position: 0% 50%; }
-50% { background-position: 100% 50%; }
-100% { background-position: 0% 50%; }
-}
+  @keyframes cosmicGradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
 
-/* Fullscreen Galaxy Canvas */
-#galaxy-canvas {
-position: fixed;
-top: 0;
-left: 0;
-width: 100vw;
-height: 100vh;
-z-index: 0;
-pointer-events: none;
-}
+  /* Fullscreen Galaxy Canvas */
+  #particles-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+  }
 
-/* Direct Floating Layout (No Container Card) */
-.profile-container {
-width: 100%;
-max-width: 380px;
-display: flex;
-flex-direction: column;
-position: relative;
-z-index: 2;
-animation: containerEntrance 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-}
+  /* Main Container */
+  .main-wrapper {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 850px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    animation: containerEntrance 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
 
-@keyframes containerEntrance {
-0% { opacity: 0; transform: translateY(35px) scale(0.92); }
-100% { opacity: 0.99; transform: translateY(0) scale(1); }
-}
+  @keyframes containerEntrance {
+    0% { opacity: 0; transform: translateY(35px) scale(0.92); }
+    100% { opacity: 0.99; transform: translateY(0) scale(1); }
+  }
 
-/* Header Navigation Tools */
-.controls-header {
-display: flex;
-justify-content: space-between;
-align-items: center;
-margin-bottom: 16px;
-z-index: 10;
-}
+  /* Navigation Header */
+  .top-nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
-.lang-btn, .theme-btn {
-background: rgba(11, 15, 30, 0.75);
-border: 1px solid var(--border-color);
-color: var(--accent-cyan);
-padding: 7px 16px;
-border-radius: 20px;
-cursor: pointer;
-font-size: 0.8rem;
-font-weight: 700;
-letter-spacing: 1px;
-display: flex;
-align-items: center;
-gap: 6px;
-box-shadow: 0 0 12px rgba(0, 243, 255, 0.2);
-backdrop-filter: blur(8px);
-}
+  .nav-btn {
+    background: rgba(13, 20, 40, 0.75);
+    border: 1px solid var(--card-border);
+    color: var(--neon-cyan);
+    padding: 8px 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+    backdrop-filter: blur(8px);
+  }
 
-.lang-btn:hover, .theme-btn:hover {
-border-color: var(--accent-cyan);
-box-shadow: 0 0 20px rgba(0, 243, 255, 0.5);
-transform: translateY(-2px);
-}
+  .nav-btn:hover {
+    background: rgba(0, 243, 255, 0.2);
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.5);
+    transform: translateY(-2px);
+  }
 
-.theme-btn {
-width: 36px;
-height: 36px;
-padding: 0;
-justify-content: center;
-border-radius: 50%;
-}
+  .theme-btn {
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    justify-content: center;
+    border-radius: 50%;
+  }
 
-/* Hero Avatar Section */
-.profile-hero {
-display: flex;
-flex-direction: column;
-align-items: center;
-text-align: center;
-margin-bottom: 22px;
-position: relative;
-}
+  .header-tools {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
 
-.avatar-frame {
-position: relative;
-width: 110px;
-height: 110px;
-margin-bottom: 18px;
-}
+  /* Core Profile Card (Geometric Reference Design) */
+  .profile-card {
+    width: 100%;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 24px;
+    padding: 36px;
+    box-shadow: 0 0 35px rgba(0, 243, 255, 0.18);
+    backdrop-filter: blur(12px);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 36px;
+    position: relative;
+    overflow: hidden;
+  }
 
-/* Rotating Cosmic Orbit Ring */
-.avatar-frame::before {
-content: '';
-position: absolute;
-top: -7px;
-left: -7px;
-right: -7px;
-bottom: -7px;
-border-radius: 50%;
-background: conic-gradient(from 0deg, var(--accent-cyan), var(--accent-purple), var(--accent-pink), var(--accent-cyan));
-animation: spinRing 4s linear infinite;
-z-index: 1;
-filter: blur(3px);
-}
+  /* High-Visibility Gradient Reflector Sweep on Page Load */
+  .profile-card::after {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: -150%;
+    width: 120%;
+    height: 300%;
+    background: linear-gradient(
+      115deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0) 30%,
+      rgba(255, 255, 255, 0.25) 45%,
+      rgba(0, 243, 255, 0.8) 50%,
+      rgba(255, 0, 127, 0.6) 55%,
+      transparent 70%
+    );
+    transform: rotate(25deg);
+    pointer-events: none;
+    z-index: 20;
+    animation: reflectorSweep 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.1s;
+  }
 
-.avatar-frame::after {
-content: '';
-position: absolute;
-top: -2px;
-left: -2px;
-right: -2px;
-bottom: -2px;
-border-radius: 50%;
-background: #03030f;
-z-index: 1;
-}
+  @keyframes reflectorSweep {
+    0% { left: -150%; opacity: 0; }
+    20% { opacity: 1; }
+    100% { left: 160%; opacity: 0; }
+  }
 
-@keyframes spinRing {
-100% { transform: rotate(360deg); }
-}
+  /* Geometric Cut Avatar Frame */
+  .geo-avatar-container {
+    position: relative;
+    width: 260px;
+    height: 230px;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: avatarZigZagEntrance 2.8s cubic-bezier(0.25, 1, 0.35, 1) forwards;
+  }
 
-.avatar-frame img {
-position: relative;
-width: 100%;
-height: 100%;
-object-fit: cover;
-border-radius: 50%;
-z-index: 2;
-}
+  @keyframes avatarZigZagEntrance {
+    0% {
+      opacity: 0;
+      transform: translate(-140px, -90px) scale(0.5) rotate(-15deg);
+      filter: blur(10px);
+    }
+    35% {
+      opacity: 0.7;
+      transform: translate(70px, -40px) scale(0.8) rotate(10deg);
+      filter: blur(5px);
+    }
+    70% {
+      opacity: 0.9;
+      transform: translate(-35px, 25px) scale(0.95) rotate(-5deg);
+      filter: blur(2px);
+    }
+    100% {
+      opacity: 1;
+      transform: translate(0, 0) scale(1) rotate(0deg);
+      filter: blur(0px);
+    }
+  }
 
-.verified-badge {
-position: absolute;
-bottom: 2px;
-right: 2px;
-background: var(--accent-cyan);
-color: #000;
-width: 24px;
-height: 24px;
-border-radius: 50%;
-display: flex;
-justify-content: center;
-align-items: center;
-font-size: 0.75rem;
-font-weight: 900;
-border: 2px solid #03030f;
-z-index: 3;
-box-shadow: 0 0 12px var(--accent-cyan);
-}
+  .geo-shape-mask {
+    width: 100%;
+    height: 100%;
+    clip-path: polygon(
+      30% 0%, 100% 0%, 70% 100%, 0% 100%, 
+      18% 38%, 45% 38%, 35% 68%, 8% 68%
+    );
+    background: #000;
+    position: relative;
+    box-shadow: 0 0 30px rgba(112, 0, 255, 0.4);
+  }
 
-/* Name Typography with Gradient Glow */
-.profile-hero h1 {
-font-size: 1.85rem;
-font-weight: 800;
-letter-spacing: -0.5px;
-margin-bottom: 12px;
-background: linear-gradient(135deg, #ffffff 20%, var(--accent-cyan) 100%);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-text-shadow: 0 0 25px rgba(0, 243, 255, 0.4);
-}
+  .geo-avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(10%) contrast(110%);
+    transition: transform 0.4s ease, filter 0.4s ease;
+    animation: photoFlash 2.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  }
 
-/* Quantum Status Indicator Pill */
-.status-container {
-display: inline-flex;
-align-items: center;
-gap: 8px;
-background: rgba(11, 15, 30, 0.8);
-border: 1px solid rgba(0, 243, 255, 0.35);
-padding: 6px 16px;
-border-radius: 20px;
-font-size: 0.75rem;
-font-weight: 700;
-margin-bottom: 14px;
-color: #ffffff;
-backdrop-filter: blur(6px);
-box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
-}
+  @keyframes photoFlash {
+    0% { filter: brightness(2.8) contrast(160%) grayscale(0%); }
+    60% { filter: brightness(1.4) contrast(125%) grayscale(0%); }
+    100% { filter: grayscale(10%) contrast(110%); }
+  }
 
-.status-dot {
-width: 8px;
-height: 8px;
-border-radius: 50%;
-background-color: #00ffcc;
-box-shadow: 0 0 10px #00ffcc;
-}
+  .geo-avatar-container:hover .geo-avatar-img {
+    filter: grayscale(0%) contrast(105%);
+    transform: scale(1.05);
+  }
 
-.status-dot.pulse {
-animation: pulseGlow 1.5s infinite ease-in-out;
-}
+  .geo-glow-border {
+    position: absolute;
+    inset: -3px;
+    clip-path: polygon(
+      30% 0%, 100% 0%, 70% 100%, 0% 100%, 
+      18% 38%, 45% 38%, 35% 68%, 8% 68%
+    );
+    background: linear-gradient(
+      135deg, 
+      var(--neon-cyan), 
+      var(--neon-pink), 
+      var(--neon-purple), 
+      var(--neon-gold),
+      var(--neon-cyan)
+    );
+    background-size: 400% 400%;
+    z-index: -1;
+    opacity: 0.95;
+    filter: blur(6px);
+    animation: movingBorderGradient 5s linear infinite;
+  }
 
-@keyframes pulseGlow {
-0% { transform: scale(1); opacity: 1; }
-50% { transform: scale(1.4); opacity: 0.5; }
-100% { transform: scale(1); opacity: 1; }
-}
+  @keyframes movingBorderGradient {
+    0% { background-position: 0% 50%; filter: blur(4px); }
+    50% { background-position: 100% 50%; filter: blur(8px); }
+    100% { background-position: 0% 50%; filter: blur(4px); }
+  }
 
-.meta-info-list {
-display: flex;
-flex-direction: column;
-gap: 6px;
-font-size: 0.88rem;
-color: var(--text-muted);
-}
+  /* Vertical Card Divider */
+  .card-divider {
+    width: 1px;
+    height: 180px;
+    background: linear-gradient(to bottom, transparent, var(--neon-cyan), transparent);
+    opacity: 0.5;
+  }
 
-.meta-item {
-display: flex;
-align-items: center;
-justify-content: center;
-gap: 8px;
-}
+  /* Profile Details */
+  .profile-details {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
 
-.meta-item i {
-color: var(--accent-cyan);
-}
+  .name-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
 
-/* Action Grid (4 Buttons) with Solid Dark Styling */
-.quick-actions-row {
-display: grid;
-grid-template-columns: repeat(4, 1fr);
-gap: 10px;
-margin-bottom: 22px;
-}
+  .name-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    background: linear-gradient(90deg, #ffffff, var(--neon-cyan), #ffffff);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textShine 2.5s ease-out 1;
+  }
 
-.action-pill {
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-background: var(--bg-element);
-border: 1px solid var(--border-color);
-border-radius: 18px;
-height: 72px;
-color: var(--text-main);
-text-decoration: none;
-position: relative;
-overflow: hidden;
-backdrop-filter: blur(8px);
-box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-}
+  @keyframes textShine {
+    0% { background-position: 200% center; }
+    100% { background-position: 0% center; }
+  }
 
-.action-pill::after {
-content: '';
-position: absolute;
-top: -50%;
-left: -50%;
-width: 200%;
-height: 200%;
-background: linear-gradient(60deg, transparent, rgba(0, 243, 255, 0.2), transparent);
-transform: rotate(30deg);
-transition: 0.5s;
-}
+  .verified-badge {
+    color: var(--neon-cyan);
+    font-size: 20px;
+    filter: drop-shadow(0 0 8px var(--neon-cyan));
+  }
 
-.action-pill:hover::after {
-left: 100%;
-}
+  .location-tag {
+    font-size: 16px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+  }
 
-.action-pill:hover {
-border-color: var(--accent-cyan);
-box-shadow: 0 0 22px rgba(0, 243, 255, 0.4);
-transform: translateY(-4px);
-background: var(--bg-element-hover);
-}
+  .location-tag i {
+    color: var(--neon-pink);
+    filter: drop-shadow(0 0 5px var(--neon-pink));
+  }
 
-.action-pill i {
-font-size: 1.25rem;
-margin-bottom: 6px;
-color: var(--accent-cyan);
-}
+  /* Status Pill Indicator */
+  .status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0, 243, 255, 0.08);
+    border: 1px solid rgba(0, 243, 255, 0.3);
+    padding: 4px 14px;
+    border-radius: 50px;
+    font-size: 13px;
+    width: fit-content;
+    margin: 4px 0;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+  }
 
-.action-pill span {
-font-size: 0.7rem;
-color: var(--text-muted);
-font-weight: 600;
-}
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #00ffcc;
+    box-shadow: 0 0 10px #00ffcc;
+  }
 
-/* Action CTA Container */
-.cta-container {
-display: flex;
-flex-direction: column;
-gap: 12px;
-}
+  .status-dot.pulse {
+    animation: pulse 1.5s infinite ease-in-out;
+  }
 
-.btn-outline-cyber {
-width: 100%;
-height: 52px;
-background: var(--bg-element);
-color: var(--text-main);
-border: 1px solid var(--border-color);
-border-radius: 16px;
-font-size: 0.95rem;
-font-weight: 700;
-display: flex;
-justify-content: center;
-align-items: center;
-gap: 10px;
-cursor: pointer;
-backdrop-filter: blur(8px);
-box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-}
+  @keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.4); opacity: 0.5; }
+    100% { transform: scale(1); opacity: 1; }
+  }
 
-.btn-outline-cyber:hover {
-border-color: var(--accent-cyan);
-background: var(--bg-element-hover);
-box-shadow: 0 0 22px rgba(0, 243, 255, 0.35);
-transform: translateY(-2px);
-}
+  /* Social Links Grid */
+  .social-actions-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+  }
 
-/* Modal Overlay */
-.modal-overlay {
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background: rgba(2, 2, 8, 0.88);
-backdrop-filter: blur(12px);
-display: flex;
-justify-content: center;
-align-items: center;
-z-index: 1000;
-opacity: 0;
-pointer-events: none;
-transition: opacity 0.4s ease;
-}
+  .social-icon-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(0, 243, 255, 0.3);
+    color: var(--neon-cyan);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 16px;
+  }
 
-.modal-overlay.visible { opacity: 1; pointer-events: auto; }
+  .social-icon-btn:hover {
+    background: var(--neon-cyan);
+    color: #000;
+    box-shadow: 0 0 15px var(--neon-cyan);
+    transform: translateY(-2px);
+  }
 
-.vcard-popup-reminder {
-width: 90%;
-max-width: 340px;
-background: var(--modal-bg);
-border: 1px solid var(--border-glow);
-box-shadow: 0 0 50px rgba(0, 243, 255, 0.35);
-border-radius: 28px;
-padding: 24px;
-text-align: center;
-display: flex;
-flex-direction: column;
-align-items: center;
-transform: scale(0.85);
-transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
+  /* Action Grid */
+  .actions-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    width: 100%;
+  }
 
-.modal-overlay.visible .vcard-popup-reminder { transform: scale(1); }
+  .action-btn {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 16px 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+    text-decoration: none;
+    backdrop-filter: blur(8px);
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  }
 
-.vcard-popup-icon {
-width: 60px;
-height: 60px;
-background: rgba(0, 243, 255, 0.1);
-color: var(--accent-cyan);
-border-radius: 50%;
-display: flex;
-justify-content: center;
-align-items: center;
-font-size: 1.5rem;
-margin-bottom: 16px;
-border: 1px solid var(--border-glow);
-box-shadow: 0 0 20px rgba(0, 243, 255, 0.4);
-}
+  .action-btn i {
+    font-size: 22px;
+    color: var(--neon-cyan);
+  }
 
-.vcard-popup-text {
-font-size: 0.95rem;
-line-height: 1.5;
-color: var(--text-main);
-font-weight: 500;
-margin-bottom: 24px;
-}
+  .action-btn span {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+  }
 
-.modal-btn-group {
-display: flex;
-flex-direction: column;
-gap: 10px;
-width: 100%;
-}
+  .action-btn:hover {
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+    transform: translateY(-3px);
+  }
 
-.vcard-popup-btn {
-background: var(--btn-gradient);
-color: #ffffff;
-border: none;
-width: 100%;
-height: 46px;
-border-radius: 14px;
-font-size: 0.95rem;
-font-weight: 800;
-cursor: pointer;
-box-shadow: 0 0 18px rgba(0, 243, 255, 0.35);
-}
+  .action-btn:hover i {
+    transform: scale(1.1);
+  }
 
-.vcard-popup-close-btn {
-background: transparent;
-color: var(--text-muted);
-border: none;
-width: 100%;
-height: 40px;
-border-radius: 12px;
-font-size: 0.85rem;
-font-weight: 600;
-cursor: pointer;
-}
-.vcard-popup-close-btn:hover { color: var(--text-main); }
+  /* Primary vCard CTA */
+  .cta-button {
+    width: 100%;
+    background: linear-gradient(135deg, rgba(0, 240, 255, 0.25), rgba(112, 0, 255, 0.35));
+    border: 1px solid var(--neon-cyan);
+    border-radius: 16px;
+    padding: 16px;
+    color: #fff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    cursor: pointer;
+    box-shadow: 0 0 30px rgba(112, 0, 255, 0.3);
+    text-transform: uppercase;
+  }
+
+  .cta-button:hover {
+    background: linear-gradient(135deg, rgba(0, 240, 255, 0.45), rgba(255, 0, 85, 0.55));
+    box-shadow: 0 0 40px rgba(0, 240, 255, 0.6);
+    transform: scale(1.01);
+  }
+
+  .cta-button i {
+    font-size: 18px;
+    color: var(--neon-cyan);
+  }
+
+  /* Contact Modal Overlay */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(2, 2, 8, 0.88);
+    backdrop-filter: blur(12px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+
+  .modal-overlay.visible { opacity: 1; pointer-events: auto; }
+
+  .vcard-popup-reminder {
+    width: 90%;
+    max-width: 340px;
+    background: var(--modal-bg);
+    border: 1px solid var(--neon-cyan);
+    box-shadow: 0 0 50px rgba(0, 243, 255, 0.35);
+    border-radius: 28px;
+    padding: 24px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: scale(0.85);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .modal-overlay.visible .vcard-popup-reminder { transform: scale(1); }
+
+  .vcard-popup-icon {
+    width: 60px;
+    height: 60px;
+    background: rgba(0, 243, 255, 0.1);
+    color: var(--neon-cyan);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+    border: 1px solid var(--neon-cyan);
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.4);
+  }
+
+  .vcard-popup-text {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #ffffff;
+    font-weight: 500;
+    margin-bottom: 24px;
+  }
+
+  .modal-btn-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .vcard-popup-btn {
+    background: var(--btn-gradient);
+    color: #ffffff;
+    border: none;
+    width: 100%;
+    height: 46px;
+    border-radius: 14px;
+    font-size: 0.95rem;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 0 18px rgba(0, 243, 255, 0.35);
+  }
+
+  .vcard-popup-close-btn {
+    background: transparent;
+    color: var(--text-muted);
+    border: none;
+    width: 100%;
+    height: 40px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .vcard-popup-close-btn:hover { color: #ffffff; }
+
+  @media (max-width: 768px) {
+    .profile-card {
+      flex-direction: column;
+      gap: 20px;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .card-divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--neon-cyan), transparent);
+    }
+
+    .name-header, .location-tag, .social-actions-bar {
+      justify-content: center;
+    }
+
+    .status-pill {
+      margin: 0 auto;
+    }
+  }
+
+  [dir="rtl"] .actions-grid {
+    direction: rtl;
+  }
 </style>
 </head>
 <body>
 
-<!-- Fullscreen Galaxy & Shooting Star Canvas -->
-<canvas id="galaxy-canvas"></canvas>
+  <!-- Fullscreen Galaxy Canvas -->
+  <canvas id="particles-canvas"></canvas>
 
-<div class="profile-container">
+  <div class="main-wrapper">
+    <!-- Top Navigation Header -->
+    <div class="top-nav">
+      <button class="nav-btn" id="langToggle">
+        <i class="fa-solid fa-globe"></i>
+        <span id="langText">عربي</span>
+      </button>
 
-<div class="controls-header">
-<button id="lang-toggle" class="lang-btn" aria-label="Switch Language">
-<i class="fa-solid fa-globe"></i> <span id="lang-text">عربي</span>
-</button>
-<button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
-<i class="fa-solid fa-moon"></i>
-</button>
-</div>
+      <div class="header-tools">
+        <button class="nav-btn theme-btn" id="themeToggle" aria-label="Toggle Theme">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+        <button class="nav-btn theme-btn" id="shareBtn" aria-label="QR Share Modal">
+          <i class="fa-solid fa-qrcode"></i>
+        </button>
+      </div>
+    </div>
 
-<section class="profile-hero">
-<div class="avatar-frame">
-<img id="profile-display-img" src="Screenshot_20260526_003701_WhatsApp.jpg" alt="Muhammad">
-<div class="verified-badge"><i class="fa-solid fa-check"></i></div>
-</div>
+    <!-- Main Reference Style Geometric Profile Card -->
+    <div class="profile-card">
+      <div class="geo-avatar-container">
+        <div class="geo-glow-border"></div>
+        <div class="geo-shape-mask">
+          <img src="Screenshot_20260526_003701_WhatsApp.jpg" alt="Muhammad Avatar" class="geo-avatar-img" id="avatarImg">
+        </div>
+      </div>
 
-<div id="status-badge" class="status-container">
-<span id="status-dot" class="status-dot pulse"></span>
-<span id="status-text">Checking Status...</span>
-</div>
+      <div class="card-divider"></div>
 
-<h1 id="profile-name">Muhammad</h1>
+      <div class="profile-details">
+        <div class="name-header">
+          <h1 class="name-title" id="userName">Muhammad</h1>
+          <i class="fa-solid fa-circle-check verified-badge"></i>
+        </div>
 
-<div class="meta-info-list">
-<div class="meta-item"><i class="fa-solid fa-location-dot"></i> <span id="meta-location">Doha, Qatar</span></div>
-</div>
-</section>
+        <div class="location-tag">
+          <i class="fa-solid fa-location-dot"></i>
+          <span id="meta-location">Doha, Qatar</span>
+        </div>
 
-<!-- Quick Actions Row -->
-<section class="quick-actions-row">
-<a href="tel:+97451736746" class="action-pill interaction-track" data-label="Phone Call Clicked">
-<i class="fa-solid fa-phone"></i>
-<span data-i18n="call">Call</span>
-</a>
-<a href="https://wa.me/97451736746" target="_blank" class="action-pill interaction-track" data-label="WhatsApp Clicked">
-<i class="fa-brands fa-whatsapp"></i>
-<span>WhatsApp</span>
-</a>
-<a href="https://wa.me/97451736746?text=Hey%20can%20we%20schedule%20a%20meeting" target="_blank" class="action-pill interaction-track" data-label="Meeting WhatsApp Clicked">
-<i class="fa-regular fa-calendar-days"></i>
-<span data-i18n="meeting">Meeting</span>
-</a>
-<a href="#" target="_blank" class="action-pill interaction-track" data-label="Office Location Mapped">
-<i class="fa-solid fa-location-arrow"></i>
-<span data-i18n="location_pill">Location</span>
-</a>
-</section>
+        <div class="status-pill">
+          <span class="status-dot pulse" id="status-dot"></span>
+          <span id="statusText">Checking Status...</span>
+        </div>
 
-<section class="cta-container">
-<button id="vcard-btn" class="btn-outline-cyber">
-<i class="fa-regular fa-address-card"></i> <span id="vcard-btn-text" data-i18n="btn-vcard">Download vCard</span>
-</button>
-</section>
+        <div class="social-actions-bar">
+          <a href="#" class="social-icon-btn"><i class="fa-solid fa-globe"></i></a>
+          <a href="#" class="social-icon-btn"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="social-icon-btn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#" class="social-icon-btn"><i class="fa-brands fa-facebook-f"></i></a>
+        </div>
+      </div>
+    </div>
 
-</div>
+    <!-- Communication Quick Action Grid -->
+    <div class="actions-grid">
+      <a href="tel:+97451736746" class="action-btn">
+        <i class="fa-solid fa-phone"></i>
+        <span id="labelCall" data-i18n="call">Call</span>
+      </a>
 
-<!-- Contact Modal Overlay -->
-<div id="modal-overlay" class="modal-overlay">
-<div class="vcard-popup-reminder">
-<div class="vcard-popup-icon"><i class="fa-solid fa-user-plus"></i></div>
-<div id="vcard-reminder-text" class="vcard-popup-text">
-Save Muhammad directly to your phone contacts list.
-</div>
-<div class="modal-btn-group">
-<button id="vcard-popup-download" class="vcard-popup-btn">Save Contact</button>
-<button id="vcard-popup-close" class="vcard-popup-close-btn">Not Now</button>
-</div>
-</div>
-</div>
+      <a href="https://wa.me/97451736746" target="_blank" class="action-btn">
+        <i class="fa-brands fa-whatsapp"></i>
+        <span>WhatsApp</span>
+      </a>
 
-<script>
-const canvas = document.getElementById('galaxy-canvas');
-const ctx = canvas.getContext('2d');
-let stars = [];
-let meteors = [];
+      <a href="https://wa.me/97451736746?text=Hey%20can%20we%20schedule%20a%20meeting" target="_blank" class="action-btn">
+        <i class="fa-solid fa-calendar-check"></i>
+        <span id="labelMeeting" data-i18n="meeting">Meeting</span>
+      </a>
 
-function resizeCanvas() {
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-}
-window.addEventListener('resize', resizeCanvas);
-resizeCanvas();
+      <a href="#" target="_blank" class="action-btn">
+        <i class="fa-solid fa-compass"></i>
+        <span id="labelLocation" data-i18n="location_pill">Location</span>
+      </a>
+    </div>
 
-class Star {
-constructor() {
-this.x = Math.random() * canvas.width;
-this.y = Math.random() * canvas.height;
-this.size = Math.random() * 2.6 + 0.8;
-this.alpha = Math.random();
-this.alphaChange = (Math.random() * 0.025 + 0.008) * (Math.random() < 0.5 ? 1 : -1);
-this.color = ['#ffffff', '#00f0ff', '#e0aaff', '#f72585', '#4cc9f0'][Math.floor(Math.random() * 5)];
-}
-update() {
-this.alpha += this.alphaChange;
-if (this.alpha <= 0.2 || this.alpha >= 1) {
-this.alphaChange *= -1;
-}
-}
-draw() {
-ctx.save();
-ctx.globalAlpha = Math.max(0.2, this.alpha);
-ctx.beginPath();
-ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-ctx.fillStyle = this.color;
-ctx.shadowBlur = this.size * 7;
-ctx.shadowColor = this.color;
-ctx.fill();
-ctx.restore();
-}
-}
+    <!-- vCard Download Primary Action -->
+    <button class="cta-button" id="downloadVcard">
+      <i class="fa-solid fa-id-card"></i>
+      <span id="labelVcard" data-i18n="btn-vcard">Download vCard</span>
+    </button>
+  </div>
 
-class Meteor {
-constructor() {
-this.reset();
-}
-reset() {
-this.x = Math.random() * canvas.width * 1.5 - canvas.width * 0.25;
-this.y = -60;
-this.length = Math.random() * 140 + 80;
-this.speed = Math.random() * 11 + 6;
-this.size = Math.random() * 2 + 1;
-}
-update() {
-this.x += this.speed;
-this.y += this.speed * 0.85;
-if (this.y > canvas.height + 120 || this.x > canvas.width + 120) {
-this.reset();
-}
-}
-draw() {
-ctx.save();
-const gradient = ctx.createLinearGradient(
-this.x, this.y,
-this.x - this.length, this.y - this.length * 0.85
-);
-gradient.addColorStop(0, '#00f0ff');
-gradient.addColorStop(0.5, '#f72585');
-gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+  <!-- QR Overlay Modal -->
+  <div class="modal-overlay" id="qrModal">
+    <div class="vcard-popup-reminder">
+      <i class="fa-solid fa-xmark close-modal" id="closeQrModal" style="position: absolute; top: 15px; right: 15px; cursor: pointer;"></i>
+      <h3 style="font-family: Orbitron; color: var(--neon-cyan); margin-bottom: 10px;">Scan Profile</h3>
+      <div style="background: #fff; padding: 12px; border-radius: 12px; margin: 10px 0;">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https://profileqatar.github.io/asif/" alt="QR Code" style="width: 160px; height: 160px; display: block;">
+      </div>
+      <p style="font-size: 13px; color: var(--text-muted);">Scan to open digital profile card.</p>
+    </div>
+  </div>
 
-ctx.strokeStyle = gradient;
-ctx.lineWidth = this.size;
-ctx.beginPath();
-ctx.moveTo(this.x, this.y);
-ctx.lineTo(this.x - this.length, this.y - this.length * 0.85);
-ctx.stroke();
-ctx.restore();
-}
-}
+  <!-- Contact Auto-Reminder Popup Modal -->
+  <div id="modal-overlay" class="modal-overlay">
+    <div class="vcard-popup-reminder">
+      <div class="vcard-popup-icon"><i class="fa-solid fa-user-plus"></i></div>
+      <div id="vcard-reminder-text" class="vcard-popup-text">
+        Save Muhammad directly to your phone contacts list.
+      </div>
+      <div class="modal-btn-group">
+        <button id="vcard-popup-download" class="vcard-popup-btn">Save Contact</button>
+        <button id="vcard-popup-close" class="vcard-popup-close-btn">Not Now</button>
+      </div>
+    </div>
+  </div>
 
-for (let i = 0; i < 180; i++) {
-stars.push(new Star());
-}
-for (let i = 0; i < 4; i++) {
-meteors.push(new Meteor());
-}
+  <script>
+    // Fullscreen Galaxy Canvas & Meteors Engine
+    const canvas = document.getElementById('particles-canvas');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+    let meteors = [];
 
-function animateGalaxy() {
-ctx.clearRect(0, 0, canvas.width, canvas.height);
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
 
-const grad1 = ctx.createRadialGradient(canvas.width * 0.25, canvas.height * 0.25, 10, canvas.width * 0.25, canvas.height * 0.25, 320);
-grad1.addColorStop(0, 'rgba(181, 23, 158, 0.22)');
-grad1.addColorStop(1, 'rgba(3, 3, 15, 0)');
-ctx.fillStyle = grad1;
-ctx.fillRect(0, 0, canvas.width, canvas.height);
+    class Star {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2.6 + 0.8;
+        this.alpha = Math.random();
+        this.alphaChange = (Math.random() * 0.025 + 0.008) * (Math.random() < 0.5 ? 1 : -1);
+        this.color = ['#ffffff', '#00f0ff', '#e0aaff', '#f72585', '#4cc9f0'][Math.floor(Math.random() * 5)];
+      }
+      update() {
+        this.alpha += this.alphaChange;
+        if (this.alpha <= 0.2 || this.alpha >= 1) {
+          this.alphaChange *= -1;
+        }
+      }
+      draw() {
+        ctx.save();
+        ctx.globalAlpha = Math.max(0.2, this.alpha);
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.shadowBlur = this.size * 7;
+        ctx.shadowColor = this.color;
+        ctx.fill();
+        ctx.restore();
+      }
+    }
 
-const grad2 = ctx.createRadialGradient(canvas.width * 0.75, canvas.height * 0.75, 10, canvas.width * 0.75, canvas.height * 0.75, 360);
-grad2.addColorStop(0, 'rgba(0, 243, 255, 0.2)');
-grad2.addColorStop(1, 'rgba(3, 3, 15, 0)');
-ctx.fillStyle = grad2;
-ctx.fillRect(0, 0, canvas.width, canvas.height);
+    class Meteor {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * canvas.width * 1.5 - canvas.width * 0.25;
+        this.y = -60;
+        this.length = Math.random() * 140 + 80;
+        this.speed = Math.random() * 11 + 6;
+        this.size = Math.random() * 2 + 1;
+      }
+      update() {
+        this.x += this.speed;
+        this.y += this.speed * 0.85;
+        if (this.y > canvas.height + 120 || this.x > canvas.width + 120) {
+          this.reset();
+        }
+      }
+      draw() {
+        ctx.save();
+        const gradient = ctx.createLinearGradient(
+          this.x, this.y,
+          this.x - this.length, this.y - this.length * 0.85
+        );
+        gradient.addColorStop(0, '#00f0ff');
+        gradient.addColorStop(0.5, '#f72585');
+        gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
 
-stars.forEach(star => {
-star.update();
-star.draw();
-});
+        ctx.strokeStyle = gradient;
+        ctx.lineWidth = this.size;
+        ctx.beginPath();
+        ctx.moveTo(this.x, this.y);
+        ctx.lineTo(this.x - this.length, this.y - this.length * 0.85);
+        ctx.stroke();
+        ctx.restore();
+      }
+    }
 
-meteors.forEach(meteor => {
-meteor.update();
-meteor.draw();
-});
+    for (let i = 0; i < 180; i++) {
+      stars.push(new Star());
+    }
+    for (let i = 0; i < 4; i++) {
+      meteors.push(new Meteor());
+    }
 
-requestAnimationFrame(animateGalaxy);
-}
-animateGalaxy();
+    function animateGalaxy() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-let currentLanguage = 'en';
-const translations = {
-en: {
-name: "Muhammad",
-location: "Doha, Qatar",
-call: "Call",
-meeting: "Meeting",
-location_pill: "Location",
-"btn-vcard": "Download vCard",
-"vcard_reminder": "Save Muhammad directly to your phone contacts list.",
-"vcard_save": "Save Contact",
-"vcard_cancel": "Not Now",
-"status-on": "Active Now (Qatar Time)",
-"status-off": "🌙 Standby / Offline"
-},
-ar: {
-name: "محمد",
-location: "الدوحة، قطر",
-call: "اتصال",
-meeting: "اجتماع",
-location_pill: "الموقع",
-"btn-vcard": "حفظ جهة الاتصال",
-"vcard_reminder": "احفظ جهة اتصال محمد مباشرة في هاتفك.",
-"vcard_save": "حفظ جهة الاتصال",
-"vcard_cancel": "ليس الآن",
-"status-on": "نشط حالياً (توقيت قطر)",
-"status-off": "🌙 خارج أوقات العمل"
-}
-};
+      const grad1 = ctx.createRadialGradient(canvas.width * 0.25, canvas.height * 0.25, 10, canvas.width * 0.25, canvas.height * 0.25, 320);
+      grad1.addColorStop(0, 'rgba(181, 23, 158, 0.22)');
+      grad1.addColorStop(1, 'rgba(3, 3, 15, 0)');
+      ctx.fillStyle = grad1;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-const langToggleBtn = document.getElementById('lang-toggle');
-const langText = document.getElementById('lang-text');
+      const grad2 = ctx.createRadialGradient(canvas.width * 0.75, canvas.height * 0.75, 10, canvas.width * 0.75, canvas.height * 0.75, 360);
+      grad2.addColorStop(0, 'rgba(0, 243, 255, 0.2)');
+      grad2.addColorStop(1, 'rgba(3, 3, 15, 0)');
+      ctx.fillStyle = grad2;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-function setLanguage(lang) {
-currentLanguage = lang;
-document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
-document.documentElement.setAttribute('lang', lang);
-langText.innerText = lang === 'en' ? 'عربي' : 'EN';
+      stars.forEach(star => {
+        star.update();
+        star.draw();
+      });
 
-document.getElementById('profile-name').innerText = translations[lang].name;
-document.getElementById('meta-location').innerText = translations[lang].location;
-document.getElementById('vcard-reminder-text').innerText = translations[lang]["vcard_reminder"];
-document.getElementById('vcard-popup-download').innerText = translations[lang]["vcard_save"];
-document.getElementById('vcard-popup-close').innerText = translations[lang]["vcard_cancel"];
+      meteors.forEach(meteor => {
+        meteor.update();
+        meteor.draw();
+      });
 
-document.querySelectorAll('[data-i18n]').forEach(element => {
-const translationKey = element.getAttribute('data-i18n');
-if (translations[lang][translationKey]) {
-const icon = element.querySelector('i');
-if (icon) {
-element.innerHTML = '';
-element.appendChild(icon);
-element.appendChild(document.createTextNode(' ' + translations[lang][translationKey]));
-} else {
-element.innerText = translations[lang][translationKey];
-}
-}
-});
-updateQatarStatus();
-}
+      requestAnimationFrame(animateGalaxy);
+    }
+    animateGalaxy();
 
-langToggleBtn.addEventListener('click', () => {
-setLanguage(currentLanguage === 'en' ? 'ar' : 'en');
-});
+    // Multi-Language Switching Engine
+    let currentLanguage = 'en';
+    const translations = {
+      en: {
+        name: "Muhammad",
+        location: "Doha, Qatar",
+        call: "Call",
+        meeting: "Meeting",
+        location_pill: "Location",
+        "btn-vcard": "Download vCard",
+        "vcard_reminder": "Save Muhammad directly to your phone contacts list.",
+        "vcard_save": "Save Contact",
+        "vcard_cancel": "Not Now",
+        "status-on": "Active Now (Qatar Time)",
+        "status-off": "🌙 Standby / Offline"
+      },
+      ar: {
+        name: "محمد",
+        location: "الدوحة، قطر",
+        call: "اتصال",
+        meeting: "اجتماع",
+        location_pill: "الموقع",
+        "btn-vcard": "حفظ جهة الاتصال",
+        "vcard_reminder": "احفظ جهة اتصال محمد مباشرة في هاتفك.",
+        "vcard_save": "حفظ جهة الاتصال",
+        "vcard_cancel": "ليس الآن",
+        "status-on": "نشط حالياً (توقيت قطر)",
+        "status-off": "🌙 خارج أوقات العمل"
+      }
+    };
 
-function updateQatarStatus() {
-const dot = document.getElementById('status-dot');
-const text = document.getElementById('status-text');
-const now = new Date();
-const qatarTimeString = now.toLocaleString("en-US", {timeZone: "Asia/Qatar", hour: 'numeric', hour12: false});
-const currentQatarHour = parseInt(qatarTimeString, 10);
+    const langToggleBtn = document.getElementById('langToggle');
+    const langText = document.getElementById('langText');
 
-if (currentQatarHour >= 8 && currentQatarHour < 18) {
-dot.style.backgroundColor = "#00ffcc";
-dot.classList.add('pulse');
-text.innerText = translations[currentLanguage]["status-on"];
-} else {
-dot.style.backgroundColor = "#f72585";
-dot.classList.remove('pulse');
-text.innerText = translations[currentLanguage]["status-off"];
-}
-}
-updateQatarStatus();
-setInterval(updateQatarStatus, 60000);
+    function setLanguage(lang) {
+      currentLanguage = lang;
+      document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+      document.documentElement.setAttribute('lang', lang);
+      langText.innerText = lang === 'en' ? 'عربي' : 'EN';
 
-const themeToggleBtn = document.getElementById('theme-toggle');
-const themeIcon = themeToggleBtn.querySelector('i');
+      document.getElementById('userName').innerText = translations[lang].name;
+      document.getElementById('meta-location').innerText = translations[lang].location;
+      document.getElementById('vcard-reminder-text').innerText = translations[lang]["vcard_reminder"];
+      document.getElementById('vcard-popup-download').innerText = translations[lang]["vcard_save"];
+      document.getElementById('vcard-popup-close').innerText = translations[lang]["vcard_cancel"];
 
-themeToggleBtn.addEventListener('click', () => {
-const currentTheme = document.documentElement.getAttribute('data-theme');
-let targetTheme = 'dark';
-if (currentTheme === 'dark') {
-targetTheme = 'light';
-themeIcon.className = 'fa-solid fa-sun';
-} else {
-themeIcon.className = 'fa-solid fa-moon';
-}
-document.documentElement.setAttribute('data-theme', targetTheme);
-});
+      document.querySelectorAll('[data-i18n]').forEach(element => {
+        const translationKey = element.getAttribute('data-i18n');
+        if (translations[lang][translationKey]) {
+          const icon = element.querySelector('i');
+          if (icon) {
+            element.innerHTML = '';
+            element.appendChild(icon);
+            element.appendChild(document.createTextNode(' ' + translations[lang][translationKey]));
+          } else {
+            element.innerText = translations[lang][translationKey];
+          }
+        }
+      });
+      updateQatarStatus();
+    }
 
-const modalOverlay = document.getElementById('modal-overlay');
-const closePopupBtn = document.getElementById('vcard-popup-close');
-let hasVcardBeenDownloaded = false;
+    langToggleBtn.addEventListener('click', () => {
+      setLanguage(currentLanguage === 'en' ? 'ar' : 'en');
+    });
 
-setTimeout(() => {
-if (!hasVcardBeenDownloaded) {
-modalOverlay.classList.add('visible');
-}
-}, 15000);
+    // Dynamic Active Business Hour Detector (Qatar Time Zone)
+    function updateQatarStatus() {
+      const dot = document.getElementById('status-dot');
+      const text = document.getElementById('statusText');
+      const now = new Date();
+      const qatarTimeString = now.toLocaleString("en-US", {timeZone: "Asia/Qatar", hour: 'numeric', hour12: false});
+      const currentQatarHour = parseInt(qatarTimeString, 10);
 
-closePopupBtn.addEventListener('click', () => {
-modalOverlay.classList.remove('visible');
-});
+      if (currentQatarHour >= 8 && currentQatarHour < 18) {
+        dot.style.backgroundColor = "#00ffcc";
+        dot.classList.add('pulse');
+        text.innerText = translations[currentLanguage]["status-on"];
+      } else {
+        dot.style.backgroundColor = "#ff0055";
+        dot.classList.remove('pulse');
+        text.innerText = translations[currentLanguage]["status-off"];
+      }
+    }
+    updateQatarStatus();
+    setInterval(updateQatarStatus, 60000);
 
-document.getElementById('vcard-popup-download').addEventListener('click', () => {
-modalOverlay.classList.remove('visible');
-document.getElementById('vcard-btn').click();
-});
+    // Theme Switcher Logic
+    const themeToggleBtn = document.getElementById('themeToggle');
+    const themeIcon = themeToggleBtn.querySelector('i');
 
-async function triggerVcardDownload() {
-hasVcardBeenDownloaded = true;
-modalOverlay.classList.remove('visible');
+    themeToggleBtn.addEventListener('click', () => {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      let targetTheme = 'dark';
+      if (currentTheme === 'dark') {
+        targetTheme = 'light';
+        themeIcon.className = 'fa-solid fa-sun';
+      } else {
+        themeIcon.className = 'fa-solid fa-moon';
+      }
+      document.documentElement.setAttribute('data-theme', targetTheme);
+    });
 
-const imageUrl = window.location.origin + window.location.pathname.replace('index.html', '') + 'Screenshot_20260526_003701_WhatsApp.jpg';
-let base64PhotoText = '';
+    // Auto-Modal Reminder Logic
+    const modalOverlay = document.getElementById('modal-overlay');
+    const closePopupBtn = document.getElementById('vcard-popup-close');
+    let hasVcardBeenDownloaded = false;
 
-try {
-const response = await fetch(imageUrl);
-const blob = await response.blob();
-base64PhotoText = await new Promise((resolve) => {
-const reader = new FileReader();
-reader.onloadend = () => resolve(reader.result.split(',')[1]);
-reader.readAsDataURL(blob);
-});
-} catch (e) {}
+    setTimeout(() => {
+      if (!hasVcardBeenDownloaded) {
+        modalOverlay.classList.add('visible');
+      }
+    }, 15000);
 
-const vcardLines = [
-"BEGIN:VCARD",
-"VERSION:3.0",
-"N:;Muhammad;;;",
-"FN:Muhammad",
-"TEL;TYPE=CELL;TYPE=PREF:+97451736746"
- ];
+    closePopupBtn.addEventListener('click', () => {
+      modalOverlay.classList.remove('visible');
+    });
 
-if (base64PhotoText) {
-vcardLines.push("PHOTO;TYPE=JPEG;ENCODING=b:" + base64PhotoText);
-} else {
-vcardLines.push("PHOTO;VALUE=URL:" + imageUrl);
-}
-vcardLines.push("END:VCARD");
+    document.getElementById('vcard-popup-download').addEventListener('click', () => {
+      modalOverlay.classList.remove('visible');
+      document.getElementById('downloadVcard').click();
+    });
 
-const blobFile = new Blob([vcardLines.join("\r\n")], { type: 'text/vcard;charset=utf-8;' });
-const link = document.createElement('a');
-link.href = URL.createObjectURL(blobFile);
-link.download = 'Muhammad.vcf';
-link.click();
-}
+    // QR Share Modal Logic
+    const shareBtn = document.getElementById('shareBtn');
+    const qrModal = document.getElementById('qrModal');
+    const closeQrModal = document.getElementById('closeQrModal');
 
-document.getElementById('vcard-btn').addEventListener('click', triggerVcardDownload);
-</script>
+    shareBtn.addEventListener('click', () => qrModal.classList.add('visible'));
+    closeQrModal.addEventListener('click', () => qrModal.classList.remove('visible'));
+
+    // Dynamic vCard Exporter with Base64 Image Fetching
+    async function triggerVcardDownload() {
+      hasVcardBeenDownloaded = true;
+      modalOverlay.classList.remove('visible');
+
+      const imageUrl = document.getElementById('avatarImg').src;
+      let base64PhotoText = '';
+
+      try {
+        const response = await fetch(imageUrl);
+        const blob = await response.blob();
+        base64PhotoText = await new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.onloadend = () => resolve(reader.result.split(',')[1]);
+          reader.readAsDataURL(blob);
+        });
+      } catch (e) {}
+
+      const vcardLines = [
+        "BEGIN:VCARD",
+        "VERSION:3.0",
+        "N:;Muhammad;;;",
+        "FN:Muhammad",
+        "TEL;TYPE=CELL;TYPE=PREF:+97451736746"
+      ];
+
+      if (base64PhotoText) {
+        vcardLines.push("PHOTO;TYPE=JPEG;ENCODING=b:" + base64PhotoText);
+      } else {
+        vcardLines.push("PHOTO;VALUE=URL:" + imageUrl);
+      }
+      vcardLines.push("END:VCARD");
+
+      const blobFile = new Blob([vcardLines.join("\r\n")], { type: 'text/vcard;charset=utf-8;' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blobFile);
+      link.download = 'Muhammad.vcf';
+      link.click();
+    }
+
+    document.getElementById('downloadVcard').addEventListener('click', triggerVcardDownload);
+  </script>
 </body>
 </html>
-
+```
