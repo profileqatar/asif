@@ -180,52 +180,33 @@
     100% { left: 160%; opacity: 0; }
   }
 
-  /* Geometric Cut Avatar Frame - CORRECTLY MIRRORED/FLIPPED */
+  /* Avatar Container - No Cutting */
   .geo-avatar-container {
     position: relative;
-    width: 260px;
-    height: 230px;
+    width: 220px;
+    height: 220px;
     flex-shrink: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    animation: avatarZigZagEntrance 2.8s cubic-bezier(0.25, 1, 0.35, 1) forwards;
+    border-radius: 20px;
+    animation: avatarEntrance 2.8s cubic-bezier(0.25, 1, 0.35, 1) forwards;
   }
 
-  @keyframes avatarZigZagEntrance {
-    0% {
-      opacity: 0;
-      transform: translate(-140px, -90px) scale(0.5) rotate(-15deg);
-      filter: blur(10px);
-    }
-    35% {
-      opacity: 0.7;
-      transform: translate(70px, -40px) scale(0.8) rotate(10deg);
-      filter: blur(5px);
-    }
-    70% {
-      opacity: 0.9;
-      transform: translate(-35px, 25px) scale(0.95) rotate(-5deg);
-      filter: blur(2px);
-    }
-    100% {
-      opacity: 1;
-      transform: translate(0, 0) scale(1) rotate(0deg);
-      filter: blur(0px);
-    }
+  @keyframes avatarEntrance {
+    0% { opacity: 0; transform: scale(0.8); filter: blur(10px); }
+    100% { opacity: 1; transform: scale(1); filter: blur(0px); }
   }
 
-  /* PERFECTLY MIRRORED POLYGON MASK */
+  /* Full Image Mask without clip-path */
   .geo-shape-mask {
     width: 100%;
     height: 100%;
-    clip-path: polygon(
-      30% 0%, 100% 0%, 100% 100%, 0% 100%, 
-      45% 62%, 18% 62%, 8% 32%, 35% 32%
-    );
+    border-radius: 18px;
     background: #000;
     position: relative;
-    box-shadow: 0 0 30px rgba(112, 0, 255, 0.4);
+    overflow: hidden;
+    box-shadow: 0 0 25px rgba(112, 0, 255, 0.4);
   }
 
   .geo-avatar-img {
@@ -235,13 +216,6 @@
     object-position: center center;
     filter: grayscale(10%) contrast(110%);
     transition: transform 0.4s ease, filter 0.4s ease;
-    animation: photoFlash 2.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-  }
-
-  @keyframes photoFlash {
-    0% { filter: brightness(2.8) contrast(160%) grayscale(0%); }
-    60% { filter: brightness(1.4) contrast(125%) grayscale(0%); }
-    100% { filter: grayscale(10%) contrast(110%); }
   }
 
   .geo-avatar-container:hover .geo-avatar-img {
@@ -249,14 +223,11 @@
     transform: scale(1.05);
   }
 
-  /* PERFECTLY MIRRORED GLOW BORDER */
+  /* Glowing Border for Full Image */
   .geo-glow-border {
     position: absolute;
     inset: -3px;
-    clip-path: polygon(
-      30% 0%, 100% 0%, 100% 100%, 0% 100%, 
-      45% 62%, 18% 62%, 8% 32%, 35% 32%
-    );
+    border-radius: 20px;
     background: linear-gradient(
       135deg, 
       var(--neon-cyan), 
@@ -468,7 +439,7 @@
 
   .cta-button:hover {
     background: linear-gradient(135deg, rgba(0, 240, 255, 0.45), rgba(255, 0, 85, 0.55));
-    box-shadow: 0 0 40px rgba(0, 243, 255, 0.6);
+    box-shadow: 0 0 40px rgba(0, 240, 255, 0.6);
     transform: scale(1.01);
   }
 
