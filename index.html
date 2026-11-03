@@ -180,7 +180,7 @@
     100% { left: 160%; opacity: 0; }
   }
 
-  /* Geometric Cut Avatar Frame - FLIPPED HORIZONTALLY */
+  /* Geometric Cut Avatar Frame - CORRECTLY MIRRORED/FLIPPED */
   .geo-avatar-container {
     position: relative;
     width: 260px;
@@ -215,13 +215,13 @@
     }
   }
 
-  /* FLIPPED HORIZONTALLY POLYGON MASK */
+  /* PERFECTLY MIRRORED POLYGON MASK */
   .geo-shape-mask {
     width: 100%;
     height: 100%;
     clip-path: polygon(
-      30% 0%, 100% 0%, 70% 100%, 0% 100%, 
-      45% 38%, 18% 38%, 8% 68%, 35% 68%
+      30% 0%, 100% 0%, 100% 100%, 0% 100%, 
+      45% 62%, 18% 62%, 8% 32%, 35% 32%
     );
     background: #000;
     position: relative;
@@ -249,13 +249,13 @@
     transform: scale(1.05);
   }
 
-  /* FLIPPED HORIZONTALLY GLOW BORDER */
+  /* PERFECTLY MIRRORED GLOW BORDER */
   .geo-glow-border {
     position: absolute;
     inset: -3px;
     clip-path: polygon(
-      30% 0%, 100% 0%, 70% 100%, 0% 100%, 
-      45% 38%, 18% 38%, 8% 68%, 35% 68%
+      30% 0%, 100% 0%, 100% 100%, 0% 100%, 
+      45% 62%, 18% 62%, 8% 32%, 35% 32%
     );
     background: linear-gradient(
       135deg, 
